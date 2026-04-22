@@ -3,6 +3,8 @@ import Login from './pages/Login';
 import Sidebar from './components/Sidebar';
 import MachineForm from './components/MachineForm';
 import MachineList from './components/MachineList'; 
+import BannerManager from './components/bannerManager'; 
+import ClassManager from './components/classManager'; // استيراد صفحة الحصص الجديدة
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
