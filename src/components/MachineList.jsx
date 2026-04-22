@@ -80,7 +80,7 @@ export default function MachineList() {
 
       if (updateError) throw updateError;
       
-      alert('تم تحديث بيانات الجهاز بنجاح! ✨');
+      alert('تم تحديث بيانات الجهاز بنجاح! ');
       setEditingMachine(null); // إغلاق نافذة التعديل
       setNewVideoFile(null);
       fetchMachines(); // تحديث القائمة
