@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import Login from './pages/Login';
 import Sidebar from './components/Sidebar';
 import MachineForm from './components/MachineForm';
-import MachineList from './components/MachineList'; 
+import MachineList from './components/MachineList';
 import BannerManager from './components/BannerManager';
 import ClassManager from './components/ClassManager';
+import UserManager from './components/UserManager';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [adminName, setAdminName] = useState('');
-  
+
   // الحالة الافتراضية للوحة التحكم
-  const [activeTab, setActiveTab] = useState('add'); 
+  const [activeTab, setActiveTab] = useState('add');
 
   if (!isLoggedIn) {
     return <Login onLoginSuccess={(name) => { setAdminName(name); setIsLoggedIn(true); }} />;
@@ -23,6 +24,8 @@ export default function App() {
     if (activeTab === 'list') return 'قاعدة بيانات الأجهزة';
     if (activeTab === 'banners') return 'إدارة العروض الترويجية';
     if (activeTab === 'classes') return 'إدارة حصص اللياقة'; // العنوان الجديد
+    if (activeTab === 'users') return 'إدارة المستخدمين'; // 👈 إضافة العنوان
+
   };
 
   const getHeaderDesc = () => {
@@ -30,6 +33,7 @@ export default function App() {
     if (activeTab === 'list') return 'استعرض، عدّل، أو احذف الأجهزة الموجودة';
     if (activeTab === 'banners') return 'أضف واحذف الصور الإعلانية المعروضة في التطبيق الرئيسي';
     if (activeTab === 'classes') return 'جدولة وإدارة الحصص التدريبية وتعيين المدربين لها'; // الوصف الجديد
+    if (activeTab === 'users') return 'استعراض بيانات المدربين والمتدربين المسجلين في النادي'; // 👈 إضافة الوصف
   };
 
   return (
@@ -52,11 +56,11 @@ export default function App() {
       `}</style>
 
       <div style={{ display: 'flex', height: '100vh', direction: 'rtl' }}>
-        
+
         <Sidebar adminName={adminName} onLogout={() => setIsLoggedIn(false)} activeTab={activeTab} setActiveTab={setActiveTab} />
-        
+
         <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
-          
+
           <header style={{ position: 'sticky', top: 0, zIndex: 5, padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(255, 255, 255, 0.85)', backdropFilter: 'blur(12px)', borderBottom: '1px solid #e2e8f0' }}>
             <div>
               <h1 style={{ margin: 0, fontSize: '24px', fontWeight: '800' }}>
@@ -66,7 +70,7 @@ export default function App() {
                 {getHeaderDesc()}
               </p>
             </div>
-            
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
               <div style={{ textAlign: 'left' }}>
                 <div style={{ fontWeight: '700', fontSize: '14px' }}>المدير {adminName}</div>
@@ -81,9 +85,10 @@ export default function App() {
             {activeTab === 'add' && <MachineForm />}
             {activeTab === 'list' && <MachineList />}
             {activeTab === 'banners' && <BannerManager />}
-            {activeTab === 'classes' && <ClassManager />} {/* الشاشة الجديدة */}
+            {activeTab === 'classes' && <ClassManager />}
+            {activeTab === 'users' && <UserManager />} {/* 👈 إضافة الشاشة */}
           </div>
-          
+
         </main>
       </div>
     </>
